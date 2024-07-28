@@ -21,3 +21,11 @@ def available_models():
     ]
 
     return {"models": available_models_list}
+
+
+class SummarizationRequest(pydantic.BaseModel):
+    elaborate_text: str
+    summarization_model: str
+    maximum_tokens: int
+    use_huggingface_model: bool
+
