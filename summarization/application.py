@@ -6,9 +6,10 @@ from .routes import api_router
 
 
 class SummarizationApplication:
-    __allowed_origins = [
-        "http://localhost:5173",
-    ]
+    # we are having this just for development purposes, in production,
+    # the vue application is served by the python backend itself, so
+    # allowed origins can be an empty array without allowing localhost
+    __allowed_origins = ["http://localhost:5173"]
     __allowed_headers: list[str] = ["*"]
     __allowed_methods: list[str] = ["*"]
     __allowed_credentials: bool = True
@@ -26,5 +27,11 @@ class SummarizationApplication:
         )
 
         app.include_router(api_router)
+
+        app.mount(
+            path="/",
+            app=fastapi.staticfiles.StaticFiles(directory="dist/", html=True),
+            name="static",
+        )
 
         return app
