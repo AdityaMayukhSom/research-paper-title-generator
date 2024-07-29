@@ -1,8 +1,5 @@
-import fastapi
-import fastapi.responses
-import pydantic
-import huggingface_hub
-import os
+import fastapi, fastapi.responses
+import huggingface_hub, pydantic, os
 
 
 api_router = fastapi.APIRouter(prefix="/api")
