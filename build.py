@@ -39,6 +39,15 @@ if not backend_path.is_dir():
     logging.critical(f"{backend_path.resolve()} is not a directory.")
     sys.exit(1)
 
+# deletes previously created distribution directories to have a clean slate
+if distribution_src_dir.exists():
+    shutil.rmtree(distribution_src_dir)
+
+if distribution_dest_dir.exists():
+    shutil.rmtree(distribution_dest_dir)
+
+# list down the executables which are required to further proceed the build step.
+# if any one of the listed executables does not exist, we terminate the build.
 required_executable_list = ["node"]
 
 for required_executable in required_executable_list:
@@ -56,15 +65,12 @@ if pnpm_path is None:
         logging.error("corepack not found. cannot install pnpm.")
         sys.exit(1)
 
+    # if corepack is installed, try to install pnpm using corepack
     subprocess.call(["corepack", "enable", "pnpm"], shell=True)
 
 if not node_modules_dir.exists():
     subprocess.call(["pnpm", "install"], shell=True, cwd=frontend_path)
 
-if distribution_src_dir.exists():
-    shutil.rmtree(distribution_src_dir)
-if distribution_dest_dir.exists():
-    shutil.rmtree(distribution_dest_dir)
 
 subprocess.call(["pnpm", "run", "build"], shell=True, cwd=frontend_path)
 shutil.copytree(distribution_src_dir, distribution_dest_dir)
