@@ -7,13 +7,35 @@ api_router = fastapi.APIRouter(prefix="/api")
 
 @api_router.get("/available-models")
 def available_models():
-    available_models_list: list[str] = [
-        "TohidaRehman/pegasus-large-Abstract-Title-CSPubSum",
-        "TohidaRehman/t5-base-Abstract-Title",
-        "TohidaRehman/bart-base-Abstract-Title-CSPubSum",
-        "czearing/article-title-generator",
-        "AryanLala/autonlp-Scientific_Title_Generator-34558227",
-        "Fabby/gpt2-english-light-novel-titles",
+    available_models_list = [
+        {
+            "modelId": "TohidaRehman/pegasus-large-Abstract-Title-CSPubSum",
+            "displayName": "pegasus-large-Abstract-Title-CSPubSum",
+        },
+        {
+            "modelId": "TohidaRehman/Llama-3-8b-Abstract-Title-CSPubSum",
+            "displayName": "Llama-3-8b-Abstract-Title-CSPubSum",
+        },
+        {
+            "modelId": "TohidaRehman/t5-base-Abstract-Title",
+            "displayName": "t5-base-Abstract-Title",
+        },
+        {
+            "modelId": "TohidaRehman/bart-base-Abstract-Title-CSPubSum",
+            "displayName": "bart-base-Abstract-Title-CSPubSum",
+        },
+        {
+            "modelId": "czearing/article-title-generator",
+            "displayName": "article-title-generator",
+        },
+        {
+            "modelId": "AryanLala/autonlp-Scientific_Title_Generator-34558227",
+            "displayName": "autonlp-Scientific_Title_Generator-34558227",
+        },
+        {
+            "modelId": "Fabby/gpt2-english-light-novel-titles",
+            "displayName": "gpt2-english-light-novel-titles",
+        },
     ]
 
     return {"models": available_models_list}
